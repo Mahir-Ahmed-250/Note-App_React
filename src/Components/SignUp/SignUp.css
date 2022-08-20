@@ -1,0 +1,91 @@
+.login-title {
+    font-family: 'League Gothic', sans-serif;
+    padding-top: 5%;
+    margin-bottom: 10px;
+    font-size: 70px;
+    text-align: center;
+    color: #fd5353;
+}
+
+.note-title {
+    font-family: 'Roboto', sans-serif;
+    font-family: 'Satisfy', cursive;
+    font-size: 45px;
+    color: #fd5353;
+}
+
+.signUp-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gender-text {
+    margin-bottom: 10px;
+}
+
+.radio-button {
+    display: flex;
+}
+
+input[type="radio"] {
+    /* remove standard background appearance */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /* create custom radiobutton appearance */
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    padding: 6px;
+    /* background-color only for content */
+    background-clip: content-box;
+    border: 2px solid #bbbbbb;
+    background-color: #e7e6e7;
+    border-radius: 50%;
+}
+
+/* appearance for checked radiobutton */
+input[type="radio"]:checked {
+    background-color: #fd5353;
+}
+
+/* optional styles, I'm using this for centering radiobuttons */
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.login-btn {
+    background-color: #fd5353;
+    border: none;
+    font-family: 'League Gothic', sans-serif;
+    color: #ffffff;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 6px;
+}
+
+.login-btn:hover {
+    background-color: #ff6b6b;
+}
+
+.sign-up-link {
+    color: green;
+    text-decoration: none;
+}
+
+.sign-up-link :hover {
+    color: green;
+
+}
+
+
+
+@media only screen and (max-width: 767px) {
+    .login-container {
+        flex-direction: column;
+    }
+}
