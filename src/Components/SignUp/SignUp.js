@@ -44,28 +44,33 @@ const SignUp = () => {
 
     const signup = async () => {
         setLoading(true)
+
         try {
-            // Created User With Email & Password
-            const result = await createUserWithEmailAndPassword(auth, email, password)
 
+            if (name.trim().length !== 0 && age.length !== 0 && gender.trim().length !== 0) {
+                // Created User With Email & Password
+                const result = await createUserWithEmailAndPassword(auth, email, password)
+                // Add User Profile to Database
+                await addDoc(collection(db, 'users'), {
+                    name: name,
+                    email: email,
+                    age: age,
+                    gender: gender,
+                    uid: result.user.uid
+                })
 
-            // Add User Profile to Database
-            await addDoc(collection(db, 'users'), {
-                name: name,
-                email: email,
-                age: age,
-                gender: gender,
-                uid: result.user.uid
-            })
-            toast.success("Sign Up Successfully!");
-
-            setLoading(false)
+                toast.success("Sign Up Successfully!");
+                setLoading(false)
+                window.location.replace('/');
+            }
+            else {
+                toast.error("Please fill required field!");
+            }
         }
 
         catch (error) {
             console.log('error----->', error)
             toast.error(error.message);
-
             setLoading(false)
         }
 
@@ -138,7 +143,6 @@ const SignUp = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-
                                             </div>
 
 
@@ -151,6 +155,7 @@ const SignUp = () => {
                                     <button onClick={signup} className="login-btn mt-4 w-100">Sign Up</button>
 
                                     <ToastContainer />
+
                                 </div>
                                 <h5 className='sign-up-text'>Already Have an account? <Link to='/login' className='sign-up-link'> <span >Sign in</span></Link></h5>
                             </div>

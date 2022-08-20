@@ -6,7 +6,7 @@ import NotFound from './Components/NotFound/NotFound';
 import { useEffect, useState } from 'react';
 import Notes from './Components/Notes/Notes/Notes';
 import 'react-toastify/dist/ReactToastify.css';
-
+import loadingImg from "./Components/images/1.gif";
 // Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
@@ -29,10 +29,6 @@ const firebaseConfig = {
 };
 
 
-
-
-
-
 // Initialize Firebase
 
 const app = initializeApp(firebaseConfig);
@@ -42,20 +38,49 @@ export const db = getFirestore(app)
 
 
 function App() {
-  const [user, setUser] = useState(false)
+  const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const authSubscription = onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+        setUser(user);
+        setLoading(false)
+      }
+      else {
+        setUser(null)
+        setLoading(false)
+      }
+    })
+
+    return authSubscription;
+  }, [])
 
   // useEffect(() => {
   //   signOut(auth)
   // })
-
+  if (loading) {
+    return (
+      <>
+        <center>
+          <img src={loadingImg} alt="" className='loading-gif' />
+        </center>
+      </>
+    )
+  }
 
   return (
     <div className="App">
 
       <Routes>
+
         {user ? (
-          <Route path="/" element={<Notes />} />
+          <>
+            <Route path="/" element={<Notes />} />
+            <Route path='*' element={<NotFound />} />
+          </>
+
         ) : (
           <>
             <Route path="/" element={<Login />} />
