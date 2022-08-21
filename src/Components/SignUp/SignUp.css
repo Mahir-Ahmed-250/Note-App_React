@@ -82,7 +82,21 @@ input[type="radio"]:checked {
 
 }
 
+.swal-button {
+    background-color: #fd5353;
+}
 
+.swal-button:active {
+    border-color: #fd5353;
+}
+
+.swal-button:hover {
+    background-color: #ff6b6b !important;
+}
+
+.swal-button:focus {
+    box-shadow: none;
+}
 
 @media only screen and (max-width: 767px) {
     .login-container {

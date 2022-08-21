@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from './Components/Login/Login';
 import SignUp from './Components/SignUp/SignUp';
 import NotFound from './Components/NotFound/NotFound';
@@ -7,16 +7,13 @@ import { useEffect, useState } from 'react';
 import Notes from './Components/Notes/Notes/Notes';
 import 'react-toastify/dist/ReactToastify.css';
 import loadingImg from "./Components/images/1.gif";
-// Import the functions you need from the SDKs you need
 
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'
 
 
-
-
-// Your web app's Firebase configuration
+// Firebase configuration
 
 const firebaseConfig = {
   apiKey: "AIzaSyCkK_Ih_qk1SfBxF3TdyuVkCkCuyM630cU",
@@ -30,12 +27,9 @@ const firebaseConfig = {
 
 
 // Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 export const db = getFirestore(app)
-
-
 
 function App() {
   const [user, setUser] = useState(null)
@@ -43,7 +37,6 @@ function App() {
 
   useEffect(() => {
     const authSubscription = onAuthStateChanged(auth, (user) => {
-
       if (user) {
         setUser(user);
         setLoading(false)
@@ -60,6 +53,7 @@ function App() {
   // useEffect(() => {
   //   signOut(auth)
   // })
+
   if (loading) {
     return (
       <>
@@ -74,11 +68,11 @@ function App() {
     <div className="App">
 
       <Routes>
-
         {user ? (
           <>
-            <Route path="/" element={<Notes />} />
-            <Route path='*' element={<NotFound />} />
+
+            <Route path="/" element={<Notes user={user} />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </>
 
         ) : (
