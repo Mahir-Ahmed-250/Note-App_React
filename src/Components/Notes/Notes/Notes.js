@@ -8,6 +8,7 @@ import './Notes.css';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { signOut } from 'firebase/auth';
+import notImg from '../../images/not.png';
 
 const Notes = ({ user }) => {
     const [notes, setNotes] = useState([]);
@@ -73,22 +74,29 @@ const Notes = ({ user }) => {
                 <div className='note-title-and-navigation'>
                     <div> <h1 className='my-notes-title'>My Notes</h1></div>
                     <div>
-                        <Link to="/create"><span class="material-symbols-outlined">
+                        <Link to="/create"><span className="material-symbols-outlined">
                             add_circle
                         </span></Link>
-                        <span onClick={signout} class="material-symbols-outlined">
+                        <span onClick={signout} className="material-symbols-outlined">
                             logout
                         </span>
                     </div>
                 </div>
             </div>
             <div className=' container '>
-                <div className='row'>
-                    {
-                        notes.map(note => <Note key={note.id} note={note}></Note>)
-                    }
-                </div>
+                {
 
+                    // eslint-disable-next-line eqeqeq
+                    notes == 0 ?
+                        <div >
+                            <center><img className='mt-5' src={notImg} alt="" srcset="" /></center>
+                        </div> :
+                        <div className='row'>
+                            {
+                                notes.map(note => <Note key={note.id} note={note}></Note>)
+                            }
+                        </div>
+                }
 
             </div>
         </HelmetProvider>

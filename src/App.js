@@ -2,10 +2,10 @@ import './App.css';
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from './Components/Login/Login';
 import SignUp from './Components/SignUp/SignUp';
-import NotFound from './Components/NotFound/NotFound';
 import { useEffect, useState } from 'react';
 import Notes from './Components/Notes/Notes/Notes';
-import Create from './Components/Notes/Create/Create'
+import Create from './Components/Notes/Create/Create';
+import Update from './Components/Notes/Update/Update';
 import 'react-toastify/dist/ReactToastify.css';
 import loadingImg from "./Components/images/1.gif";
 import { initializeApp } from "firebase/app";
@@ -69,7 +69,8 @@ function App() {
           <>
 
             <Route path="/" element={<Notes user={user} />} />
-            <Route path='create' element={<Create />} />
+            <Route path='/create' element={<Create user={user} />} />
+            <Route path='/update' element={<Update />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </>
 
@@ -78,7 +79,7 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path='*' element={<NotFound />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </>
         )
         }

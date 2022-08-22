@@ -4,12 +4,14 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 5px solid #fd5353;
+
 }
 
 .my-notes-title {
     font-family: 'Russo One', sans-serif;
     font-size: 60px;
     color: #fd5353;
+
 }
 
 .material-symbols-outlined {

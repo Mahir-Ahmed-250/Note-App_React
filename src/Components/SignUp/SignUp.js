@@ -66,7 +66,7 @@ const SignUp = () => {
                 });
             }
             else {
-                toast.error("Please fill-up required field!")
+                toast.error("Please fill-up required fields!")
             }
         }
 

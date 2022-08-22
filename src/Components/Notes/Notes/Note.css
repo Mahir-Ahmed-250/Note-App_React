@@ -3,7 +3,48 @@
     justify-content: space-between;
 }
 
+.note-title-1 {
+    font-family: 'Rubik', sans-serif;
+    color: #fff;
+    font-size: 35px;
+    margin-bottom: 20px;
+}
+
+.note-title-2 {
+    font-family: system-ui;
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.note-title-3 {
+    font-family: system-ui;
+    color: #fff;
+    font-size: 18px;
+
+}
+
+.read-more-less--less {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.read-more-less--more {
+    display: block;
+    margin-top: 10px;
+    font-size: 18px;
+    text-decoration: underline;
+}
+
 .del-icon {
     padding: 0;
     color: #fff !important;
+}
+
+.update-icon {
+    padding: 0;
+    color: #fff !important;
+
 }

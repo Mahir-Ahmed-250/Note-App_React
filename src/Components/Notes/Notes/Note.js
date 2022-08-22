@@ -5,6 +5,7 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 import { deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../../../App';
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const Note = ({ note }) => {
     const { title, description, color, time, date } = note;
@@ -20,7 +21,7 @@ const Note = ({ note }) => {
     }
 
     const onPressDeleteMsg = () => {
-        swal("Delete Warning!", "Do you really want to Delete this note?", "warning", {
+        swal("Delete Warning!", "Do you really want to Delete this Note?", "warning", {
             buttons: {
                 cancel: "NO",
                 catch: {
@@ -33,7 +34,7 @@ const Note = ({ note }) => {
                 switch (value) {
                     case "catch":
                         onPressDelete()
-                        swal("Success!", "You are successfully Delete a note", "success");
+                        swal("Success!", "You have successfully Delete the Note!", "success");
                         break;
                     default: ;
                 }
@@ -41,29 +42,33 @@ const Note = ({ note }) => {
     }
 
     return (
-        <div className="col-md-6 mb-4">
+        <div className="col-12 mb-4">
 
-            <Card style={{ backgroundColor: color, borderRadius: '20px', }}>
-                <Card.Body>
+            <Card style={{ backgroundColor: color, borderRadius: '25px' }} >
+                <Card.Body style={{ height: "100%" }}>
                     <div className='note-card'>
                         <div className='w-75'>
-                            <h5 className=''> {title}</h5>
-                            <h6 className=''>
+                            <h2 className='note-title-1'> {title}</h2>
+                            <h6 className='note-title-2'>
                                 <ReactReadMoreReadLess
-                                    charLimit={30}
+                                    charLimit={40}
                                     readMoreText={"Show More→"}
-                                    readLessText={"Show less↑"}
+                                    readLessText={"Show less"}
                                     readMoreClassName="read-more-less--more"
                                     readLessClassName="read-more-less--less"
+
                                 >
                                     {description}
                                 </ReactReadMoreReadLess></h6>
-                            <p> {time} -- {date.slice(0, 15)}</p>
+                            <p className='note-title-3'>Last Updated: {time} -- {date.slice(0, 15)}</p>
                         </div>
                         <div>
-                            <span onClick={onPressDeleteMsg} class="material-symbols-outlined del-icon">
+                            <span onClick={onPressDeleteMsg} className="material-symbols-outlined del-icon">
                                 delete_forever
-                            </span>
+                            </span><br />
+                            <Link to='/update'> <span className="material-symbols-outlined update-icon">
+                                update
+                            </span></Link>
                         </div>
                     </div>
 
