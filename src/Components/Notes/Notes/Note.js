@@ -38,8 +38,8 @@ const Note = ({ note }) => {
                     default: ;
                 }
             });
-
     }
+
     return (
         <div className="col-md-6 mb-4">
 
