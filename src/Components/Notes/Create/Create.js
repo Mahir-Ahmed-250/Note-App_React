@@ -1,11 +1,13 @@
 import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const Create = () => {
     return (
-        <div>
-            <h2>This is Create Page</h2>
-            <p>User can Create Here</p>
-        </div>
+        <HelmetProvider>
+            <Helmet>
+                <title>Note Web App || Create</title>
+            </Helmet>
+        </HelmetProvider>
     );
 };
 

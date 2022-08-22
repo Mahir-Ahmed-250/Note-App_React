@@ -50,8 +50,6 @@ const SignUp = () => {
                 // Created User With Email & Password
                 const result = await createUserWithEmailAndPassword(auth, email, password)
 
-
-
                 // Add User Profile to Database
                 await addDoc(collection(db, 'users'), {
                     name: name,

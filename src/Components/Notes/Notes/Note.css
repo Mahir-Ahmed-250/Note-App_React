@@ -1,0 +1,9 @@
+.note-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.del-icon {
+    padding: 0;
+    color: #fff !important;
+}

@@ -1,14 +1,20 @@
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { db } from '../../../App';
+import { auth, db } from '../../../App';
 import Note from './Note';
+import loadingImg from '../../images/1.gif'
+import './Notes.css';
+import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
+import { signOut } from 'firebase/auth';
 
 const Notes = ({ user }) => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         //create the query
         const q = query(collection(db, 'notes'), where('uid', '==', user.uid))
         //create listener
@@ -22,9 +28,40 @@ const Notes = ({ user }) => {
         })
 
         return notesListenerSubscription;
-    }, [])
+    }, [user.uid])
 
 
+
+    const signout = () => {
+        swal("Logout Warning!", "Do you really want to logout?", "warning", {
+            buttons: {
+                cancel: "NO",
+                catch: {
+                    text: "YES",
+                    value: "catch",
+                },
+            },
+        })
+            .then((value) => {
+                switch (value) {
+                    case "catch":
+                        signOut(auth)
+                        swal("Well Done!", "You are successfully logged out!", "success");
+                        break;
+                    default: ;
+                }
+            });
+
+    }
+    if (loading) {
+        return (
+            <>
+                <center>
+                    <img src={loadingImg} alt="" className='loading-gif' />
+                </center>
+            </>
+        )
+    }
 
 
     return (
@@ -32,11 +69,26 @@ const Notes = ({ user }) => {
             <Helmet>
                 <title>Note Web App || Notes</title>
             </Helmet>
-            <div>
+            <div className='container'>
+                <div className='note-title-and-navigation'>
+                    <div> <h1 className='my-notes-title'>My Notes</h1></div>
+                    <div>
+                        <Link to="/create"><span class="material-symbols-outlined">
+                            add_circle
+                        </span></Link>
+                        <span onClick={signout} class="material-symbols-outlined">
+                            logout
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div className=' container '>
+                <div className='row'>
+                    {
+                        notes.map(note => <Note key={note.id} note={note}></Note>)
+                    }
+                </div>
 
-                {
-                    notes.map(note => <Note key={note.id} note={note}></Note>)
-                }
 
             </div>
         </HelmetProvider>

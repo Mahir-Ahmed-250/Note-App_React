@@ -5,11 +5,11 @@ import SignUp from './Components/SignUp/SignUp';
 import NotFound from './Components/NotFound/NotFound';
 import { useEffect, useState } from 'react';
 import Notes from './Components/Notes/Notes/Notes';
+import Create from './Components/Notes/Create/Create'
 import 'react-toastify/dist/ReactToastify.css';
 import loadingImg from "./Components/images/1.gif";
-
 import { initializeApp } from "firebase/app";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'
 
 
@@ -50,9 +50,6 @@ function App() {
     return authSubscription;
   }, [])
 
-  // useEffect(() => {
-  //   signOut(auth)
-  // })
 
   if (loading) {
     return (
@@ -72,6 +69,7 @@ function App() {
           <>
 
             <Route path="/" element={<Notes user={user} />} />
+            <Route path='create' element={<Create />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </>
 
