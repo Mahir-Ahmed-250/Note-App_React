@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 import { signOut } from 'firebase/auth';
 import notImg from '../../images/not.png';
+import Update from '../Update/Update';
 
 const Notes = ({ user }) => {
     const [notes, setNotes] = useState([]);

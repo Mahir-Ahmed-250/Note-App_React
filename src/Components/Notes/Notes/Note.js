@@ -7,8 +7,9 @@ import { db } from '../../../App';
 import swal from 'sweetalert';
 import { Link } from 'react-router-dom';
 
+
 const Note = ({ note }) => {
-    const { title, description, color, time, date } = note;
+    const { title, description, color, time, date, id } = note;
 
     const onPressDelete = async () => {
         try {
@@ -51,8 +52,8 @@ const Note = ({ note }) => {
                             <h2 className='note-title-1'> {title}</h2>
                             <h6 className='note-title-2'>
                                 <ReactReadMoreReadLess
-                                    charLimit={40}
-                                    readMoreText={"Show More→"}
+                                    charLimit={130}
+                                    readMoreText={"Show More"}
                                     readLessText={"Show less"}
                                     readMoreClassName="read-more-less--more"
                                     readLessClassName="read-more-less--less"
@@ -66,7 +67,7 @@ const Note = ({ note }) => {
                             <span onClick={onPressDeleteMsg} className="material-symbols-outlined del-icon">
                                 delete_forever
                             </span><br />
-                            <Link to='/update'> <span className="material-symbols-outlined update-icon">
+                            <Link to={`update/${id}`}  > <span className="material-symbols-outlined update-icon">
                                 update
                             </span></Link>
                         </div>

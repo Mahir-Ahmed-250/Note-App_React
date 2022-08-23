@@ -5,13 +5,12 @@ import SignUp from './Components/SignUp/SignUp';
 import { useEffect, useState } from 'react';
 import Notes from './Components/Notes/Notes/Notes';
 import Create from './Components/Notes/Create/Create';
-import Update from './Components/Notes/Update/Update';
 import 'react-toastify/dist/ReactToastify.css';
 import loadingImg from "./Components/images/1.gif";
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'
-
+import Update from './Components/Notes/Update/Update';
 
 // Firebase configuration
 
@@ -31,6 +30,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 
+
 function App() {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -39,7 +39,7 @@ function App() {
     const authSubscription = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-        setLoading(false)
+        setLoading(false);
       }
       else {
         setUser(null)
@@ -61,6 +61,7 @@ function App() {
     )
   }
 
+
   return (
     <div className="App">
 
@@ -70,8 +71,9 @@ function App() {
 
             <Route path="/" element={<Notes user={user} />} />
             <Route path='/create' element={<Create user={user} />} />
-            <Route path='/update' element={<Update />} />
+            <Route path="/update/:id" element={<Update user={user} />} />
             <Route path="*" element={<Navigate to="/" replace />} />
+
           </>
 
         ) : (

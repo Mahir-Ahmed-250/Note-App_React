@@ -10,10 +10,12 @@ import { auth, db } from '../../../App';
 import loadingImg from '../../images/1.gif';
 
 const Create = ({ user }) => {
+    console.log(user)
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [noteColor, setNoteColor] = useState('');
     const [loading, setLoading] = useState(false);
+
 
     const handleTitle = event => {
         const result = event.target.value;
@@ -34,6 +36,7 @@ const Create = ({ user }) => {
         setLoading(true)
         try {
             if (title.trim().length !== 0 && description.trim().length !== 0 && noteColor.trim().length !== 0) {
+
                 await addDoc(collection(db, 'notes'), {
                     title: title,
                     description: description,
@@ -136,7 +139,7 @@ const Create = ({ user }) => {
                 <div className="col-12">
                     <h3 className='note-title'>Create a Note Here</h3>
                     <div className="md-form mt-4 mb-4">
-                        <input style={{ height: "60px" }} placeholder="Note title" type="title"
+                        <input style={{ height: "60px" }} placeholder="Note Title" type="title"
                             onChange={handleTitle}
                             className="form-control w-75"
                             required />
