@@ -1,8 +1,8 @@
 import './App.css';
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Login from './Components/Login/Login';
 import SignUp from './Components/SignUp/SignUp';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import Notes from './Components/Notes/Notes/Notes';
 import Create from './Components/Notes/Create/Create';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,6 +11,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'
 import Update from './Components/Notes/Update/Update';
+
 
 // Firebase configuration
 
@@ -30,6 +31,13 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app)
 export const db = getFirestore(app)
 
+const Wrapper = ({ children }) => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children
+}
 
 function App() {
   const [user, setUser] = useState(null)
@@ -64,28 +72,30 @@ function App() {
 
   return (
     <div className="App">
+      <Wrapper>
+        <Routes>
 
-      <Routes>
-        {user ? (
-          <>
+          {user ? (
+            <>
 
-            <Route path="/" element={<Notes user={user} />} />
-            <Route path='/create' element={<Create user={user} />} />
-            <Route path="/update/:id" element={<Update user={user} />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="/" element={<Notes user={user} />} />
+              <Route path='/create' element={<Create user={user} />} />
+              <Route path="/update/:id" element={<Update user={user} />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
 
-          </>
+            </>
 
-        ) : (
-          <>
-            <Route path="/" element={<Login />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </>
-        )
-        }
-      </Routes>
+          ) : (
+            <>
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </>
+          )
+          }
+        </Routes>
+      </Wrapper>
     </div>
   );
 }
