@@ -155,7 +155,9 @@ const Create = ({ user }) => {
                             <label>
                                 <div className='d-flex'>
                                     <div>
-                                        <input type="radio" value="red" name="color" onChange={handleNoteColor} />
+                                        <input type="radio" value="red" name="color" onChange={handleNoteColor}
+
+                                        />
 
                                     </div>
                                     <div className='ms-1'>
