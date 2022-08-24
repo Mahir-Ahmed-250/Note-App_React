@@ -77,7 +77,7 @@ const Update = () => {
             }
             else if (title.trim().length === 0 && description.trim().length === 0 && noteColor.trim().length === 0) {
 
-                toast.warning("For update you have to click once in all the input field")
+                toast.warning("For Update you have to click once in all the input field", { autoClose: false })
             }
             else if (title.trim().length === 0) {
                 toast.error("Sorry! Title is blank or not Clicked!")
@@ -251,18 +251,7 @@ const Update = () => {
 
                 <button onClick={onClickUpdate} className="login-btn w-25 mb-4">Update</button>
                 <ToastContainer />
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
 
-                    closeOnClick
-                    rtl={true}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
-                {/* Same as */}
-                <ToastContainer />
             </div>
 
         </HelmetProvider>
