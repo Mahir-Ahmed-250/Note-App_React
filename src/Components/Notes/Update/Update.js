@@ -169,7 +169,7 @@ const Update = () => {
                             defaultValue={noteDetails.fields?.description.stringValue}
 
                             onBlur={handleDescription}
-                            class="form-control" name="" id="" rows="10"></textarea>
+                            className="form-control" name="" id="" rows="10"></textarea>
                     </div>
                     <h4 className='note-title ' style={{ fontSize: "30px" }}>Choose your Note color</h4>
                     <div className='radio-button mt-4 mb-4'>

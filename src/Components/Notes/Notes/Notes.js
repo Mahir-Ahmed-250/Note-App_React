@@ -90,7 +90,7 @@ const Notes = ({ user }) => {
                     // eslint-disable-next-line eqeqeq
                     notes == 0 ?
                         <div >
-                            <center><img className='mt-5' src={notImg} alt="" srcset="" /></center>
+                            <center><img className='mt-5' src={notImg} alt="" /></center>
                         </div> :
                         <div className='row'>
                             {

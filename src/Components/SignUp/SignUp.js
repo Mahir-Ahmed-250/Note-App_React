@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 import signUpImg from '../images/signup1.png';
 import fire from '../images/fire.png'
 import './SignUp.css';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../App';
 import { ToastContainer, toast } from 'react-toastify';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import swal from 'sweetalert';
+import { Spinner } from 'react-bootstrap';
+import logo from '../images/google.png';
+
 
 const SignUp = () => {
 
@@ -17,7 +20,7 @@ const SignUp = () => {
     const [age, setAge] = useState('');
     const [name, setName] = useState('');
     const [gender, setGender] = useState('')
-
+    const [loading, setLoading] = useState(false);
 
     const handleEmail = event => {
         const result = event.target.value;
@@ -43,7 +46,7 @@ const SignUp = () => {
 
 
     const signup = async () => {
-
+        setLoading(true)
         try {
             if (name.trim().length !== 0 && age.length !== 0 && gender.trim().length !== 0) {
 
@@ -58,22 +61,50 @@ const SignUp = () => {
                     gender: gender,
                     uid: result.user.uid
                 })
-                swal({
-                    title: "Congratulation!",
-                    text: "You are successfully created an account!",
-                    icon: "success",
-                    button: "OK",
-                });
+
+                await sendEmailVerification(auth.currentUser)
+                    .then(() => {
+                        swal({
+                            title: "Account Created",
+                            text: "Please check your email inbox or spam for verification link!",
+                            icon: "success",
+                            button: "OK",
+                        });
+
+                    });
+                setLoading(false)
             }
             else {
                 toast.error("Please fill-up required fields!")
+                setLoading(false)
             }
         }
 
         catch (error) {
             console.log('error----->', error)
             toast.error(error.message);
+            setLoading(false)
         }
+        setLoading(false)
+
+    }
+    const googleSignUp = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                swal({
+                    title: "Well Done",
+                    text: "Successfully logged in!",
+                    icon: "success",
+                    button: "OK",
+                });
+
+            })
+            .catch((error) => {
+
+                toast.error(error.message);
+
+            })
 
     }
 
@@ -127,11 +158,15 @@ const SignUp = () => {
                                                 <div className='radio-button'>
                                                     <div className='me-3'>
                                                         <div className='d-flex'>
+
                                                             <div>
+                                                                <label></label>
                                                                 <input type="radio" value="Male" name="gender" onClick={handleGender} />
                                                             </div>
+
                                                             <div className='ms-1'>
                                                                 <h6>Male</h6>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -151,11 +186,30 @@ const SignUp = () => {
                                         </div>
                                     </form>
 
-                                    <div className="text-center mb-4">
-                                        <button onClick={signup} className="login-btn mt-4 w-100">Sign Up</button>
+                                    <div className="text-center mb-3">
+
+                                        <button onClick={signup}
+                                            className="login-btn mt-4 w-100">
+                                            {loading ? (<>
+                                                <Spinner animation="border" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </Spinner>
+                                            </>) : (<>
+                                                Sign Up
+                                            </>)}
+                                        </button>
 
                                         <ToastContainer />
 
+                                    </div>
+                                    <div className='social-login mb-2'>
+                                        <div>
+                                            <p className='social-title'>Sign Up With</p>
+                                        </div>
+                                        <div>
+                                            <img src={logo} onClick={googleSignUp} alt="" />
+
+                                        </div>
                                     </div>
                                     <h5 className='sign-up-text'>Already Have an account? <Link to='/login' className='sign-up-link'> <span >Sign in</span></Link></h5>
                                 </div>

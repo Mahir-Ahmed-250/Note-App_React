@@ -22,6 +22,7 @@
 
 .gender-text {
     margin-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .radio-button {
@@ -96,6 +97,23 @@ input[type="radio"]:checked {
 
 .swal-button:focus {
     box-shadow: none;
+}
+
+.social-login {
+    display: flex;
+    align-items: center;
+}
+
+.social-title {
+    padding: 18px 10px 0 0;
+    font-size: 22px;
+    color: #fd5353;
+    font-weight: 800;
+    font-family: 'Roboto', sans-serif;
+}
+
+.sign-up-text {
+    font-family: 'Roboto', sans-serif;
 }
 
 @media only screen and (max-width: 767px) {

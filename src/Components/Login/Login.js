@@ -4,15 +4,18 @@ import { Link } from "react-router-dom";
 import loginImg from '../images/signup.png';
 import fire from '../images/fire.png'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../../App';
 import { toast, ToastContainer } from 'react-toastify';
 import swal from 'sweetalert';
+import { Spinner } from 'react-bootstrap';
+import logo from "../images/google.png"
 
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleEmail = event => {
         const result = event.target.value;
@@ -24,27 +27,75 @@ const Login = () => {
         setPassword(result)
     }
 
-
     const signIn = async () => {
-
+        setLoading(true)
+        signOut(auth)
         try {
-            await signInWithEmailAndPassword(auth, email, password).then((res) => {
-                console.log('Sign In Successfully', res)
-            })
-            swal({
-                title: "Congratulation!",
-                text: "You are successfully logged in!",
-                icon: "success",
-                button: "OK",
-            });
+
+            if (email.trim().length !== 0 && password.length !== 0) {
+                await signInWithEmailAndPassword(auth, email, password).then((res) => {
+
+                    if (res.user.emailVerified) {
+                        swal({
+                            title: "Well Done",
+                            text: "Successfully logged in!",
+                            icon: "success",
+                            button: "OK",
+                        });
+                    }
+                    else {
+                        swal({
+                            title: "Sorry!",
+                            text: "Your Email is not Verified!",
+                            icon: "error",
+                            button: "OK",
+                        });
+                    }
+                    setLoading(false)
+                })
+            }
+            else {
+                toast.error("Please fill-up required fields!")
+                setLoading(false)
+            }
 
         }
         catch (error) {
             console.log('error----->', error)
             toast.error(error.message);
+            setLoading(false)
         }
-    }
 
+    }
+    const handlePasswordReset = () => {
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                toast.success("Password Reset Link Send");
+            })
+            .catch((error) => {
+                toast.error(error.message);
+                // ..
+            });
+    }
+    const googleSignUp = () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                swal({
+                    title: "Well Done",
+                    text: "Successfully logged in!",
+                    icon: "success",
+                    button: "OK",
+                });
+
+            })
+            .catch((error) => {
+
+                toast.error(error.message);
+
+            })
+
+    }
     return (
         <HelmetProvider>
             <Helmet>
@@ -68,7 +119,7 @@ const Login = () => {
                                                 <div className="md-form mb-4">
                                                     <input placeholder="Your Email Address" type="email"
 
-                                                        onChange={handleEmail}
+                                                        onBlur={handleEmail}
                                                         className="form-control" required />
                                                 </div>
                                             </div>
@@ -78,17 +129,50 @@ const Login = () => {
                                                         onChange={handlePassword}
                                                         className="form-control" required />
                                                 </div>
+
                                             </div>
+
+                                            <p onClick={handlePasswordReset} className='forget-link' >
+                                                Forget Password?
+                                            </p>
+
+
                                         </div>
+
                                     </form>
+
                                     <div className="text-center mb-4">
-                                        <button onClick={signIn} className="login-btn mt-4 w-100">Login</button>
+                                        <button onClick={signIn}
+                                            className="login-btn mt-3 w-100">
+                                            {loading ? (<>
+                                                <Spinner animation="border" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </Spinner>
+                                            </>) : (<>
+                                                Login
+                                            </>)}
+                                        </button>
                                     </div>
+
+
                                     <ToastContainer />
+
+                                    <div className='social-login mb-2'>
+                                        <div>
+                                            <p className='social-title'>Log In With</p>
+                                        </div>
+                                        <div>
+                                            <img src={logo} onClick={googleSignUp} alt="" />
+
+                                        </div>
+                                    </div>
                                     <h5 className='sign-up-text'>Don't Have an account? <Link to='/signup' className='sign-up-link'> <span >Sign Up</span></Link></h5>
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
                 </div>
             </div>

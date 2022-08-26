@@ -45,7 +45,8 @@ function App() {
 
   useEffect(() => {
     const authSubscription = onAuthStateChanged(auth, (user) => {
-      if (user) {
+
+      if (user && user.emailVerified) {
         setUser(user);
         setLoading(false);
       }
