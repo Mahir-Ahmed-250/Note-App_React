@@ -5,13 +5,16 @@ Live Site: https://note-app-react-alpha.vercel.app/
 ## Packages
 * React Router Dom
 * Firebase
+* React Helmet
 * React Bootstrap
 * React Sweet alert
 * React Toastify
 * Moment Js
 
-### Project Overview
-* User Can Create Account & Login
+### Features & Functionality
+* User Can Create Account & Login, for create an account user have to verify his/her email address.
+* User can also create account by google and github.
+* If user forget account password he/she can send password reset link to his/her email address.
 * User Can Create Note
 * User Can Read Note
 * User Can Update Note

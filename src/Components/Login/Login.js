@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import loginImg from '../images/signup.png';
 import fire from '../images/fire.png'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { GithubAuthProvider, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../../App';
 import { toast, ToastContainer } from 'react-toastify';
 import swal from 'sweetalert';

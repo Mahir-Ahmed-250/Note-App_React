@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import signUpImg from '../images/signup1.png';
 import fire from '../images/fire.png'
 import './SignUp.css';
-import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../App';
 import { ToastContainer, toast } from 'react-toastify';
@@ -67,7 +67,7 @@ const SignUp = () => {
                     .then(() => {
                         swal({
                             title: "Account Created",
-                            text: "Please check your email inbox or spam for verification link!",
+                            text: "Please check your email spam folder for verification link!",
                             icon: "success",
                             button: "OK",
                         });
