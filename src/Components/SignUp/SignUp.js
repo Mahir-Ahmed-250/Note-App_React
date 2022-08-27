@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import signUpImg from '../images/signup1.png';
 import fire from '../images/fire.png'
 import './SignUp.css';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, sendEmailVerification, signInWithPopup } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { auth, db } from '../../App';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import swal from 'sweetalert';
 import { Spinner } from 'react-bootstrap';
 import logo from '../images/google.png';
+import logo2 from '../images/github.png';
 
 
 const SignUp = () => {
@@ -94,19 +95,34 @@ const SignUp = () => {
             .then((result) => {
                 swal({
                     title: "Well Done",
-                    text: "Successfully logged in!",
+                    text: "Successfully logged in by Google!",
                     icon: "success",
                     button: "OK",
                 });
-
             })
             .catch((error) => {
-
                 toast.error(error.message);
-
             })
 
     }
+
+    const gitHubSignUp = () => {
+        const provider = new GithubAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                swal({
+                    title: "Well Done",
+                    text: "Successfully logged in by Github!",
+                    icon: "success",
+                    button: "OK",
+                });
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            })
+    }
+
+
 
     return (
         <HelmetProvider>
@@ -207,7 +223,9 @@ const SignUp = () => {
                                             <p className='social-title'>Sign Up With</p>
                                         </div>
                                         <div>
-                                            <img src={logo} onClick={googleSignUp} alt="" />
+                                            <img src={logo} className="me-2" onClick={googleSignUp} alt="" />
+
+                                            <img src={logo2} onClick={gitHubSignUp} alt="" />
 
                                         </div>
                                     </div>

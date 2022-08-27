@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 import loginImg from '../images/signup.png';
 import fire from '../images/fire.png'
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { GithubAuthProvider, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../../App';
 import { toast, ToastContainer } from 'react-toastify';
 import swal from 'sweetalert';
 import { Spinner } from 'react-bootstrap';
 import logo from "../images/google.png"
-
+import logo2 from '../images/github.png';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -67,34 +67,38 @@ const Login = () => {
         }
 
     }
-    const handlePasswordReset = () => {
-        sendPasswordResetEmail(auth, email)
-            .then(() => {
-                toast.success("Password Reset Link Send");
-            })
-            .catch((error) => {
-                toast.error(error.message);
-                // ..
-            });
-    }
+
     const googleSignUp = () => {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
                 swal({
                     title: "Well Done",
-                    text: "Successfully logged in!",
+                    text: "Successfully logged in by Google!",
                     icon: "success",
                     button: "OK",
                 });
 
             })
             .catch((error) => {
-
                 toast.error(error.message);
-
             })
+    }
 
+    const gitHubSignUp = () => {
+        const provider = new GithubAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                swal({
+                    title: "Well Done",
+                    text: "Successfully logged in by Github!",
+                    icon: "success",
+                    button: "OK",
+                });
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            })
     }
     return (
         <HelmetProvider>
@@ -128,13 +132,16 @@ const Login = () => {
                                                     <input placeholder="Password" type="password"
                                                         onChange={handlePassword}
                                                         className="form-control" required />
+
                                                 </div>
 
                                             </div>
+                                            <Link to="/forget">
+                                                <p className='forget-link' >
+                                                    Forget Password?
+                                                </p>
 
-                                            <p onClick={handlePasswordReset} className='forget-link' >
-                                                Forget Password?
-                                            </p>
+                                            </Link>
 
 
                                         </div>
@@ -162,8 +169,9 @@ const Login = () => {
                                             <p className='social-title'>Log In With</p>
                                         </div>
                                         <div>
-                                            <img src={logo} onClick={googleSignUp} alt="" />
+                                            <img src={logo} className="me-2" onClick={googleSignUp} alt="" />
 
+                                            <img src={logo2} onClick={gitHubSignUp} alt="" />
                                         </div>
                                     </div>
                                     <h5 className='sign-up-text'>Don't Have an account? <Link to='/signup' className='sign-up-link'> <span >Sign Up</span></Link></h5>

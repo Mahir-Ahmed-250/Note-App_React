@@ -11,6 +11,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore'
 import Update from './Components/Notes/Update/Update';
+import ForgetPassword from './Components/ForgetPassword/ForgetPassword';
 
 
 // Firebase configuration
@@ -81,7 +82,8 @@ function App() {
 
               <Route path="/" element={<Notes user={user} />} />
               <Route path='/create' element={<Create user={user} />} />
-              <Route path="/update/:id" element={<Update user={user} />} />
+              <Route path="/update/:id" element={<Update />} />
+
               <Route path="*" element={<Navigate to="/" replace />} />
 
             </>
@@ -91,6 +93,7 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/forget" element={<ForgetPassword />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </>
           )
