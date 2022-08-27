@@ -34,10 +34,6 @@ const ForgetPassword = () => {
                 toast.error(error.message);
                 setLoading(false)
             });
-
-
-
-
     }
 
     return (
@@ -46,6 +42,7 @@ const ForgetPassword = () => {
             <Helmet>
                 <title>Note Web App || Forget password</title>
             </Helmet>
+
             <div className='login-page'>
                 <div className='container '>
                     <h2 className='login-title'>Welcome to Note Web Application</h2>
@@ -67,8 +64,6 @@ const ForgetPassword = () => {
                                         </div>
                                     </div>
 
-
-
                                 </div>
                                 <button
                                     className="login-btn mt-3 w-100 mb-4">
@@ -83,36 +78,14 @@ const ForgetPassword = () => {
                                 </button>
                             </form>
 
-                            {/* <div className="text-center mb-4">
-                                
-                            </div> */}
-
-
                             <ToastContainer />
-
 
                             <h5 className='sign-up-text'>Want to Login? <Link to='/login' className='sign-up-link'> <span >Sign In</span></Link></h5>
                         </div>
                     </center>
-
-
-
-
-
-                    <div >
-
-
-                    </div>
-
-
-
                 </div>
             </div>
         </HelmetProvider>
-
-
-
-
     );
 };
 
