@@ -23,7 +23,7 @@ const ForgetPassword = () => {
             .then(() => {
                 swal({
                     title: "Successful",
-                    text: "Password reset link has been send, please check your inbox or spam folder ",
+                    text: "Password reset link has been send, please check spam folder ",
                     icon: "success",
                     button: "OK",
                 });
